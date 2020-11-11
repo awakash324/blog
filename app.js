@@ -7,7 +7,7 @@ const homeStartingContent = "Joe Biden is the president of USA";
 const aboutContent = "Daily journal with past 6 days journal";
 const contactContent = " Jadavpur, KOLKATA";
 const app = express();
-const mongoose= require('Mongoose');
+const mongoose= require('mongoose');
 const db='blogdb';
 
 const  session = require('express-session');
@@ -24,7 +24,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://admin-awakash:Awakash@1234@cluster0.fan0m.mongodb.net/test"+db,{useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect(`mongodb+srv://admin-awakash:Awakash@1234@cluster0.fan0m.mongodb.net/test${db}`,{useNewUrlParser: true,useUnifiedTopology: true});
 mongoose.set("useCreateIndex",true);
 
 const blogschema= new mongoose.Schema({
