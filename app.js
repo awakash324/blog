@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
-const homeStartingContent = "Joe Biden is the president of USA";
+const homeStartingContent = "Joe Biden is the president-elect of USA";
 const aboutContent = "Daily journal with past 6 days journal";
 const contactContent = " Jadavpur, KOLKATA";
 const app = express();
@@ -25,7 +25,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(`mongodb+srv://admin-awakash:Awakash@1234@cluster0.fan0m.mongodb.net/test${db}`,{useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-awakash:Awakash@1234@cluster0.fan0m.mongodb.net/test"+db ,{useNewUrlParser: true,useUnifiedTopology: true});
 mongoose.set("useCreateIndex",true);
 
 const blogschema= new mongoose.Schema({
@@ -176,7 +176,7 @@ app.get("/compose" , function(req,res){
 app.get("/post/:postid",function(req,res){
     var requestedid= req.params.postid ;
     
-    Blog.findOne({_id : requestedid },function(err,post){
+Blog.findOne({_id : requestedid },function(err,post){
       if(!err){
         res.render("post",{
             Title : post,
