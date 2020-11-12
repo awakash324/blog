@@ -9,7 +9,7 @@ const contactContent = " Jadavpur, KOLKATA";
 const app = express();
 const mongoose= require('mongoose');
 const db='blogdb';
-const bower= require('bower')
+
 
 const  session = require('express-session');
 const passport= require('passport');
