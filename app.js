@@ -71,7 +71,7 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
       )}
     else{
    res.statusCode = 200;
-    res.redirect("/home");
+    res.render("compose");
     }
    })
 });
@@ -113,18 +113,16 @@ app.post('/register', (req, res, next) => {
             username: req.body.username
           }, (err, person) => {
             res.statusCode = 200;
-           res.redirect("/home");
+           res.render("compose");
           });
         })
       }
     })
   })
-app.get("/", function(req,res){
-  res.render("signin");
-});
 
- app.get("/home",function(req,res){
-   if(req.isAuthenticated()){
+
+ app.get("/",function(req,res){
+  
     Blog.find({}, (err, posts) => {
       console.log("congrats")
         res.render("home", {
@@ -132,11 +130,7 @@ app.get("/", function(req,res){
           posts: posts
         });
       })
-    }
-  else{ 
-  console.log('err');
-  }  
- });
+  });
  
  app.post("/compose", function(req,res){
    if(req.isAuthenticated()){
@@ -147,22 +141,25 @@ app.get("/", function(req,res){
  });
  post.save(function(err){
 if (!err){
-  
-res.redirect("/home");
+  res.redirect("/");
 }
  });
    }
-   else console.log('error in home');
-
-});
-
+   else {
+      res.render("signin");}
+    });
+   
 app.get("/delete/:_id",function(req,res){
+  if(req.isAuthenticated()){
   var x=req.params._id;
   Blog.deleteOne({ _id: x }, function (err) {
     if (err) return handleError(err);
     
     });
-    res.redirect("/home");
+    res.redirect("/");}
+    else{
+      res.render("signin");
+    }
 });
  app.get("/about",function(req,res){
     res.render("about",{aboutContent: aboutContent});
@@ -171,8 +168,12 @@ app.get("/contact",function(req,res){
     res.render("contact",{contactContent: contactContent});
 });
 app.get("/compose" , function(req,res){
+  if(req.isAuthenticated()){
     res.render("compose");
-})
+}
+else
+    res.render("signin");
+});
 app.get("/post/:postid",function(req,res){
     var requestedid= req.params.postid ;
     
