@@ -4,7 +4,6 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "bower install && grunt build",
     "start": "nodemon app.js"
   },
   "repository": {
