@@ -79,7 +79,8 @@ app.get("/settings",function(req,res){
  app.findOne('')
 })
 app.get('/logout', (req, res, next) => {
-  if (req.session) {
+  
+  if (req.session && req.isAuthenticated()) {
     req.logout();
     req.session.destroy((err) => {
       if (err) {
@@ -92,7 +93,8 @@ app.get('/logout', (req, res, next) => {
   } else {
     var err = new Error('You are not logged in!');
     err.status = 403;
-    next(err);
+   // next(err);
+    res.render("signin");
   }
 });
 
